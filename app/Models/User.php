@@ -50,4 +50,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class)
             ->withPivot(['active', 'created_at', 'updated_at']);
     }
+
+    // relacionamento one-to-one polimórfico
+    public function image() {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

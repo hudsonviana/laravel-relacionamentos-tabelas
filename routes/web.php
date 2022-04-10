@@ -2,12 +2,28 @@
 
 use App\Models\{
     Course,
+    Image,
     Permission,
     User,
     Preference
 };
 
 use Illuminate\Support\Facades\Route;
+
+Route::get('/one-to-one-polimorphic', function () {
+    $user = User::find(6);
+
+    $data = ['path' => 'path/nome-imagem-teste.gif'];
+
+    if ($user->image) {
+        $user->image->update($data);
+    } else {
+        // $user->image()->save(new Image($data));
+        $user->image()->create($data);
+    }
+    
+    dd($user->image);
+});
 
 Route::get('/many-to-many-pivot', function () {
     $user = User::with('permissions')->find(9);

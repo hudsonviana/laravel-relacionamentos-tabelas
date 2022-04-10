@@ -14,4 +14,9 @@ class Course extends Model
     public function modules() {
         return $this->hasMany(Module::class);
     }
+
+    // relacionamento one-to-one polimórfico
+    public function image() {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
