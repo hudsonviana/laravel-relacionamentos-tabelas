@@ -9,6 +9,20 @@ use App\Models\{
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/many-to-many-pivot', function () {
+    $user = User::with('permissions')->find(9);
+
+    $user->permissions()->attach([
+        1 => ['active' => false], // {id-da-permissão} => ['active' => true/false]
+        4 => ['active' => true] // {id-da-permissão} => ['active' => true/false]
+    ]);
+    $user->refresh();
+    echo $user->name, "<br><br>";
+    foreach ($user->permissions as $permission) {
+        echo "• {$permission->name} - {$permission->pivot->active}<br>";
+    }
+});
+
 Route::get('/many-to-many', function () {
     $user = User::with('permissions')->find(3);
     $permission = Permission::find(2);
@@ -26,7 +40,6 @@ Route::get('/one-to-many', function () {
     // $course = Course::create(['name' => 'Curso de Laravel']);
     $course = Course::with('modules.lessons')->first();
     
-
     echo "<h2>Curso: {$course->name}</h2>";
     echo "<ol>";
         foreach ($course->modules as $module) {
