@@ -2,11 +2,25 @@
 
 use App\Models\{
     Course,
+    Permission,
     User,
     Preference
 };
 
 use Illuminate\Support\Facades\Route;
+
+Route::get('/many-to-many', function () {
+    $user = User::with('permissions')->find(3);
+    $permission = Permission::find(2);
+
+    // $user->permissions()->save($permission); // salva uma nova permissão
+    // $user->permissions()->sync([3]); // apaga as permissoões existentes e insere a indicada
+    $user->permissions()->attach([1, 4]); // insere as permissões indicadas, sem apagar as existentes
+
+    $user->refresh();
+
+    dd($user);
+});
 
 Route::get('/one-to-many', function () {
     // $course = Course::create(['name' => 'Curso de Laravel']);
