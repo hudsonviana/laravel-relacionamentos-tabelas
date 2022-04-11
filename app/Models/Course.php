@@ -20,7 +20,13 @@ class Course extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    // relacionamento one-to-many polimórfico
     public function comments() {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    // relacionamento many-to-many polimórfico
+    public function tags() {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 }

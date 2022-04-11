@@ -5,10 +5,32 @@ use App\Models\{
     Image,
     Permission,
     User,
-    Preference
+    Preference,
+    Tag
 };
 
 use Illuminate\Support\Facades\Route;
+
+Route::get('/many-to-many-polimorphic', function () {
+
+    // Tag::create(['name' => 'tag1', 'color' => 'blue']);
+    // Tag::create(['name' => 'tag2', 'color' => 'red']);
+    // Tag::create(['name' => 'tag3', 'color' => 'green']);
+
+    // $user = User::find(1);
+    // $user->tags()->attach(2);
+    // dd($user->tags);
+
+    // $couse = Course::find(1);
+    // $couse->tags()->attach(2);
+    // dd($couse->tags);
+
+    $tag = Tag::where('name', 'tag2')->first();
+
+    dd($tag->users);
+
+
+});
 
 Route::get('/one-to-many-polimorphic', function () {
     $course = Course::find(1);
