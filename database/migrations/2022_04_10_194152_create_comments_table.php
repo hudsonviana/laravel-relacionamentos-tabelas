@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
-            $table->morphs('imageable'); // morphs para relacionamento polimórfico // no morphs, usa-se o nome da tabela no singular + o sufixo 'able'
+            $table->string('subject');
+            $table->text('content');
+            $table->morphs('commentable'); // no morphs, usa-se o nome da tabela no singular + o sufixo 'able'
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('comments');
     }
 };

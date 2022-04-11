@@ -10,6 +10,18 @@ use App\Models\{
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/one-to-many-polimorphic', function () {
+    $course = Course::find(1);
+
+    $course->comments()->create([
+        'subject' => 'Novo (2) comentário',
+        'content' => 'Apenas (2) um comentário'
+    ]);
+
+    $course->refresh();
+    dd($course->comments);
+});
+
 Route::get('/one-to-one-polimorphic', function () {
     $user = User::find(6);
 
